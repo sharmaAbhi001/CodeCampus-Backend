@@ -1,9 +1,10 @@
 import express from "express"
 import dotenv from "dotenv"
 import authRouter from "./routes/auth.routes.js"
-import problemsRouter from "./routes/problems.route.js";
+import problemsRouter from "./routes/problems.routes.js";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
+import executionRoute from "./routes/executionCode.routes.js";
 
 
 
@@ -21,6 +22,7 @@ app.get("/",(req,res)=>{
 
 app.use("/api/v1/auth",authRouter);
 app.use("/api/v1/problem",problemsRouter)
+app.use("/api/v1/execute-code",executionRoute)
 
 
 app.listen(PORT,()=>{
