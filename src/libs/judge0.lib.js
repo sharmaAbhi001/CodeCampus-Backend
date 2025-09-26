@@ -27,7 +27,6 @@ export const submitBatch = async (submissions) => {
       }
     );
 
-    console.log(data);
     return data;
   } catch (error) {
     console.log(error);
@@ -54,7 +53,6 @@ export const pollBatchResult = async (tokens) => {
     );
 
     const results = data.submissions;
-    results.map((t) => console.log(t));
     const isAllDone = results.every(
       (r) => r.status.id !== 1 && r.status.id !== 2
     );
@@ -63,3 +61,16 @@ export const pollBatchResult = async (tokens) => {
     await sleep(1000);
   }
 };
+
+
+export const getLanguageName =(languageId)=>{
+
+  const LANGUAGE_NAMES = {
+    63:"JavaScript",
+    71:"Python",
+    62:"Java",
+  }
+
+  return LANGUAGE_NAMES[languageId] || "Unknown"
+
+}
