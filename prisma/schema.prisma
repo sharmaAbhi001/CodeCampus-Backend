@@ -137,7 +137,7 @@ model ProblemSolved {
 model Playlist {
   id String @id @default(uuid())
   title String
-  description String
+  description String?
   userId String
 
 createdAt DateTime @default(now())
@@ -154,15 +154,15 @@ user User @relation(fields: [userId],references: [id], onDelete: Cascade)
 
 model ProblemInPlayList {
   id String @id @default(uuid())
-  playListId String
+  playlistId String
   problemId String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  playList Playlist @relation(fields: [playListId],references: [id],onDelete: Cascade)
+  playList Playlist @relation(fields: [playlistId],references: [id],onDelete: Cascade)
   problem Problem @relation(fields: [problemId],references: [id],onDelete: Cascade)
 
-  @@unique([playListId,problemId])
+  @@unique([playlistId,problemId])
   
 }

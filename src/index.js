@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import executionRoute from "./routes/executionCode.routes.js";
 import submissionRouter from "./routes/submission.routes.js";
+import playListRouter from "./routes/problemPlayList.routes.js";
 
 
 
@@ -25,6 +26,7 @@ app.use("/api/v1/auth",authRouter);
 app.use("/api/v1/problem",problemsRouter);
 app.use("/api/v1/execute-code",executionRoute);
 app.use("/api/v1/submission",submissionRouter);
+app.use("/api/v1/playlist",playListRouter);
 
 
 app.listen(PORT,()=>{

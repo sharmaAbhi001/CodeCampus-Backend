@@ -40,3 +40,13 @@ export const validateLogin = () =>{
     ]       
 
 }
+
+export const validateCreatePlaylist = () =>{
+
+    return [
+        body('title')
+        .trim()
+        .notEmpty().withMessage("please Enter the title of your playlist")
+    ]
+
+}
