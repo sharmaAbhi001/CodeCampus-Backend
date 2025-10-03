@@ -55,7 +55,6 @@ const  isAdmin = async(req,res,next)=>{
   try {
 
     const {id }= req?.user;
-    console.log(id)
 
     if(!id){
       return res.status(403).json({

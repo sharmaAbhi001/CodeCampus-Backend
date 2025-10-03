@@ -33,13 +33,20 @@ enum Status {
   COMPILE_ERROR
 }
 
+enum Provider {
+  LOCAL_PROVIDER
+  GOOGLE_PROVIDER
+}
+
 model User {
   id            String          @id @default(uuid())
   name          String?
   email         String          @unique
   image         String?
   role          UserRole        @default(USER)
-  password      String
+  password      String?
+  googleId    String?  @unique
+  provider      Provider  @default(LOCAL_PROVIDER)
   submissions   Submission[]
   problem       Problem[]
   problemSolved ProblemSolved[]

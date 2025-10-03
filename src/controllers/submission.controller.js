@@ -41,8 +41,7 @@ const getSubmissionByProblemId = async (req,res) => {
     const  {problemId} = req?.params;
     const userId = req?.user?.id;
 
-     console.log(problemId)
-     console.log(userId)
+    
    
 
     try {

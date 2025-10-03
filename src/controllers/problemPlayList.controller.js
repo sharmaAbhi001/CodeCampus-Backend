@@ -149,10 +149,10 @@ const addProblemsToPlayList = async (req,res) => {
             })
          } 
 
-         console.log(problemIds.map((problemId)=>({
-            problemId,
-            playlistId
-         })))
+        //  console.log(problemIds.map((problemId)=>({
+        //     problemId,
+        //     playlistId
+        //  })))
 
          const problemsInPlayList = await db.problemInPlayList.createMany({
             data:problemIds.map((problemId)=>({

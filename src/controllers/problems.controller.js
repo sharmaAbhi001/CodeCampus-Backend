@@ -48,7 +48,7 @@ const createProblem = async (req, res) => {
 
       }));
 
-      console.log(submission)
+     
 
       const submissionResult = await submitBatch(submission);
 

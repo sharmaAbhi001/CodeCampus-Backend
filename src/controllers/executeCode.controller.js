@@ -44,7 +44,7 @@ const executeCodeForRun = async (req,res)=>{
     // 4. poll judge
     const results = await pollBatchResult(tokens);
 
-    console.log("Result>>>>>>>>>");
+   
    
 
     // Analyze test case result
@@ -96,6 +96,10 @@ const executeCodeForRun = async (req,res)=>{
    } catch (error) {
 
     console.log(error)
+    res.status(500).json({
+        success:false,
+        message:"Server error"
+    });
     
    }
 
@@ -141,7 +145,7 @@ const executeCodeForSubmit = async (req,res) => {
     // 4. poll judge
     const results = await pollBatchResult(tokens);
 
-    console.log("Result>>>>>>>>>");
+
    
 
     // Analyze test case result
@@ -265,7 +269,10 @@ const executeCodeForSubmit = async (req,res) => {
    } catch (error) {
 
     console.log(error)
-    
+    res.status(500).json({  
+        success:false,
+        message:"Server error"
+    });
    }
 }
 

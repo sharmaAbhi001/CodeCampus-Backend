@@ -10,7 +10,11 @@ const registerUser = async (req, res) => {
     // Check if user already exists
     const existingUser = await db.user.findUnique({ where: { email } });
     if (existingUser) {
-      return res.status(400).json({ message: "User already exists" });
+       if(existingUser.provider === 'GOOGLE_PROVIDER'){
+        return res.status(400).json({ 
+          success:false,
+          message: "User already exists" });
+       }
     }
 
     // hash password
@@ -22,6 +26,7 @@ const registerUser = async (req, res) => {
         name,
         email,
         password: hashedPassword,
+        provider:"LOCAL_PROVIDER",
       },
     });
 
@@ -37,11 +42,32 @@ const registerUser = async (req, res) => {
     };
     res.cookie("token", token, cookiesOptions);
 
+    const user = await db.user.findUnique({
+      where: {
+        id: newUser.id, 
+      },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        role: true,
+      },
+    });
+
+
     res
       .status(201)
-      .json({ message: "User registered successfully", user: newUser });
+      .json({
+        success:true,
+        message:"Registration successful",
+        data:user 
+      });
+
+
+
   } catch (error) {
     console.log(error);
+    res.status(500).json({ success: false, message: "Server error" });
   }
 };
 
@@ -49,10 +75,18 @@ const loginUser = async (req, res) => {
   // Login logic here
   const { email, password } = req.body;
 
-  const user = await db.user.findUnique({ where: { email },
-  });
+  const user = await db.user.findUnique({ where: { email }});
   if (!user) {
     return res.status(400).json({ message: "Invalid credentials" });
+  }
+
+  if(user){
+    if(user.provider === 'GOOGLE_PROVIDER'){
+      return res.status(401).json({
+        success:false,
+        message:"Please login with google"
+      })
+    }
   }
 
   const isPasswordValid = await bcrypt.compare(password, user.password);
@@ -73,7 +107,11 @@ const loginUser = async (req, res) => {
 
   res.cookie("token", token, cookiesOptions);
 
-  res.status(200).json({ message: "Login successful", });
+  res.status(200).json({ 
+    success:true,
+    message:"Login successful",
+    data:{ id: user.id, email: user.email, name: user.name, role: user.role }
+  });
 };
 
 const logoutUser = (req, res) => {
@@ -112,9 +150,13 @@ const getUserProfile = async (req, res) => {
 
     res.status(200).json({
       success: true,
-      message: user,
+      message: "User profile fetched successfully",
+      data: user,
     });
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
 };
 
 export { registerUser, loginUser, logoutUser, getUserProfile };
