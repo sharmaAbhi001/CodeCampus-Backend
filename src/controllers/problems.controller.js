@@ -52,6 +52,9 @@ const createProblem = async (req, res) => {
 
       const submissionResult = await submitBatch(submission);
 
+      console.log(submissionResult.map((s)=>console.log(s)));
+
+
       const tokens = submissionResult.map((res) => res.token);
 
 
@@ -95,6 +98,7 @@ const createProblem = async (req, res) => {
 
      
   } catch (error) {
+    console.log(error)
     return res.status(500).json({
       success:false,
       message:"Error while creating"
@@ -108,7 +112,15 @@ const getAllProblem = async (req,res) =>{
 
   try {
 
-    const problems = await db.problem.findMany();
+    const problems = await db.problem.findMany({
+      include:{
+        solvedBy:{
+          where:{
+            userId:req?.user?.id
+          }
+        }
+      }
+    });
 
     if(!problems){
       return res.status(404).json({

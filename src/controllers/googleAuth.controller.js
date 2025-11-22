@@ -175,7 +175,8 @@ const googleCallback = async (req,res) => {
                 googleId:decodedToken.sub,
                 email:decodedToken.email,
                 name:decodedToken.name,
-                provider:"GOOGLE_PROVIDER"
+                provider:"GOOGLE_PROVIDER",
+                image :decodedToken.picture
             }
         });
 

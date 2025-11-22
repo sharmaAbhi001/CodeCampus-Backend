@@ -138,6 +138,7 @@ const getUserProfile = async (req, res) => {
         email: true,
         name: true,
         role: true,
+        image :true,
       },
     });
 
