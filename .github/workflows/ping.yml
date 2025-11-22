@@ -9,4 +9,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Ping your Render backend
-        run: curl -I https://your-backend.onrender.com/health
+        run: curl -I https://codecampus-backend.onrender.com/api/v1/auth/check
