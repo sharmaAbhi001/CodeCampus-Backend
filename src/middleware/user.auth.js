@@ -13,6 +13,8 @@ const isUserLoggedIn = async (req, res, next) => {
       });
     }
 
+    console.log(token)
+
     // verify token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
