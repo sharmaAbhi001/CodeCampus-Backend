@@ -1,6 +1,6 @@
 
 import express from 'express';
-
+import { db } from '../libs/db.js';
 import { registerUser,loginUser,logoutUser,getUserProfile } from '../controllers/auth.controller.js';
 import { validateError } from '../middleware/validateError.js';
 import { validateLogin, validateSignup } from '../validate/validate.js';
@@ -11,9 +11,9 @@ import {isUserLoggedIn} from '../middleware/user.auth.js';
 
 const authRouter = express.Router();
 
-authRouter.get("/check",(req,res)=>{
+authRouter.get("/check", async(req,res)=>{
 
-    res.send("fine bro")
+    res.status(200).json({success:true,data:"test"});
 
 })
 
